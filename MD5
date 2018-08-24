@@ -1,0 +1,17 @@
+4b80b2543d729f23e46e6f38d5045d8e *DESCRIPTION
+0fd6e6bd78fe04b26d9f90c6d19c320e *LICENSE
+9dc198cd4d64323908093c1332ce7b3d *NAMESPACE
+4b637129bcb1d67002f1b88338858b89 *R/operators.R
+4cc93b52b751415144f97e1633fa8cab *R/shorthand.R
+1d71f681bbdca78a0c500a440c88c854 *R/type_checks.R
+4578d9049a0c7513d9b2689e05980193 *R/write_pdf.R
+6144a38876eb9e60bb94cce2d01086a0 *man/assign_by_regex.Rd
+7012a3c35529af55cadef176ca448abd *man/assign_ops.Rd
+c12acc1a4a06af5bc7e3ebe03cec7bb3 *man/cleaner_conversions.Rd
+05e99aa8368d3ff973c67f1791012506 *man/factor_conversion.Rd
+67f6fc61848aeab4eb9b502f5ea8315c *man/logicals.Rd
+27e898fc9de651f1ce7c5ca0826848c7 *man/na_equal.Rd
+18e1f9ba3aa403b0f3073ac01d8ebd64 *man/overwrite_by_regex.Rd
+f93313f6236145fa07f1fc9cdd1274db *man/overwrite_missing.Rd
+bd22817dadc287948833755391c20cb9 *man/string_arithmetic.Rd
+1e7229806ef3ba5e73002e1620305f5e *man/type_checks.Rd
