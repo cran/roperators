@@ -12,7 +12,11 @@ x \%regex<-\% value
 \item{value}{c(pattern, replacement)}
 }
 \description{
-Assign to vector only where regular expression is matched
+This takes two arguments just like \code{gsub} - a patterns and a replacement.
+It will totally overwrite any element where the pattern is matched with the second.
+If you want to simply apply a regex (i.e. replace only the specific bit that matches),
+use \code{\%regex=\%} instead. If you want to replace with nothing (""), just just \code{\%-\%} or
+\code{\%-=\% instead}.
 }
 \examples{
 # Overwrite elements that match regex:

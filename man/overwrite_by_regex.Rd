@@ -2,7 +2,7 @@
 % Please edit documentation in R/operators.R
 \name{\%regex=\%}
 \alias{\%regex=\%}
-\title{Modify or overwrite existing object by regular expression}
+\title{Modify existing object by regular expression}
 \usage{
 x \%regex=\% value
 }
@@ -12,7 +12,10 @@ x \%regex=\% value
 \item{value}{c(pattern, replacement)}
 }
 \description{
-Modify or overwrite existing object by regular expression
+This takes two arguments just like \code{gsub} - a patterns and a replacement.
+It will only overwrite the parts of any character where the pattern is matched with the second argument.
+If you want to overwrite whole elements via a regex (i.e. replace the entire element if it matches),
+use \code{\%regex<-\%} instead.
 }
 \examples{
 # Apply a regular expression/substitution to x:
@@ -21,7 +24,7 @@ Modify or overwrite existing object by regular expression
 
  # change any number to "x"
 
-  x \%regex=\% c("\\\\d+", "x")
+  x \\\%regex=\\\% c("\\\\d+", "x")
 
  print(x)
 

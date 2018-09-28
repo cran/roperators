@@ -1,7 +1,7 @@
 Package: roperators
 Type: Package
 Title: Additional Operators to Help you Write Cleaner R Code
-Version: 1.0.1
+Version: 1.1.0
 Maintainer: Ben Wiseman <benjamin.wiseman@kornferry.com>
 Authors@R: c(person('Ben', 'Wiseman', role = c('cre', 'aut', 'ccp'), email = 'benjamin.wiseman@kornferry.com'),
              person('Steven',  'Nydick', role = c('aut', 'ccp'), email = 'steven.nydick@kornferry.com'),
@@ -12,12 +12,13 @@ LazyData: true
 Copyright: Korn Ferry International
 License: MIT + file LICENSE
 RoxygenNote: 6.1.0
-Suggests: magrittr
+Suggests: magrittr, knitr, prettydoc
+VignetteBuilder: knitr
 Collate: 'type_checks.R' 'operators.R' 'shorthand.R' 'write_pdf.R'
 NeedsCompilation: no
-Packaged: 2018-08-21 15:09:41 UTC; benwiseman
+Packaged: 2018-09-28 21:16:55 UTC; benwiseman
 Author: Ben Wiseman [cre, aut, ccp],
   Steven Nydick [aut, ccp],
   Jeff Jones [aut, led]
 Repository: CRAN
-Date/Publication: 2018-08-24 16:40:03 UTC
+Date/Publication: 2018-09-28 21:40:06 UTC

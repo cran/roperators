@@ -39,8 +39,8 @@ bool  <- function(x, ...) as.logical(x, ...)
 #### Conversion shorthands
 #' Convert factor with numeric labels into numeric vector
 #' @param x a factor with numeric labels
+#' @author Ulrike Grömping, \email{groemping@@beuth-hochschule.de}
 #' @examples
-#' # Apply a regular expression/substitution to x:
 #'
 #'  x <- factor(c(11, 22, 33, 99))
 #'  as.numeric(x)
@@ -56,5 +56,6 @@ bool  <- function(x, ...) as.logical(x, ...)
 #' @export
 #' @rdname factor_conversion
 f.as.numeric <- function(x){
-  as.numeric(as.character(x)) # for factors
+  as.numeric(levels(x))[as.numeric(x)]
+  #as.numeric(as.character(x)) # for factors
 }

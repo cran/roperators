@@ -13,7 +13,6 @@ f.as.numeric(x)
 Convert factor with numeric labels into numeric vector
 }
 \examples{
-# Apply a regular expression/substitution to x:
 
  x <- factor(c(11, 22, 33, 99))
  as.numeric(x)
@@ -26,4 +25,7 @@ Convert factor with numeric labels into numeric vector
  as.numeric(as.character(x)) # A tad unsightly
 
 
+}
+\author{
+Ulrike Grömping, \email{groemping@beuth-hochschule.de}
 }

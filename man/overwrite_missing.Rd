@@ -12,7 +12,8 @@ x \%na<-\% value
 \item{value}{value to replace vector's missing values with}
 }
 \description{
-Assign value to a vector's missing values
+\code{\%na<-\%} is a simple shortcut to assign a specific value to all
+NA elements contained in x.
 }
 \examples{
  x <- c("a", NA, "c")
