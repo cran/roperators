@@ -7,18 +7,12 @@ output:
     theme: "cayman"
 vignette: >
   %\VignetteIndexEntry{Make your R code nicer with roperators}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{knitr::knitr}
   \usepackage[utf8]{inputenc}
 ---
 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-require(roperators)
-# require(magrittr)
 
-iris_data <- iris
-```
 
 
 ## A Package to Make R a Little Nicer
@@ -61,39 +55,70 @@ than simply using + to concatenate words.
 
 Happily, using `roperators`, you can now do this:
 
-```{r}
+
+```r
 require(roperators)
 my_string <- 'using infix (%) operators ' %+% 'R can do simple string addition'
 print(my_string)
 ```
 
+```
+## [1] "using infix (%) operators R can do simple string addition"
+```
+
 You can also use `%-%` to delete bits of text like so:
 
-```{r}
+
+```r
 my_string %-% 'R can do simple string addition'
+```
+
+```
+## [1] "using infix (%) operators "
 ```
 
 If ever need to use string multiplication (like some kind of barbarian), you can use `%s*%` (`%*%` was taken already)
 
-```{r}
+
+```r
 my_a <- 'a'
 my_a %s*% 3
+```
+
+```
+##     a 
+## "aaa"
+```
+
+```r
 # If a is an unnamed vector, the original value is saved as the element name(s)
 # just to make it easier to undo by my_a <- names(my_a)
 ```
 
 And, something you can't do in Python: **string division**
 
-```{r}
+
+```r
 # How many times does the letter a appear in the string
 'an apple a day keeps the malignant spirit of Steve Jobs at bay' %s/% 'a' 
 ```
 
+```
+## a 
+## 8
+```
+
 String division also works with regular expressions (it is case sensitive):
 
-```{r}
+
+```r
 # How many times is Steve Jobs or apple mentioned?
 'an apple a day keeps the malignant spirit of Steve Jobs at bay' %s/% 'Steve Jobs|apple' 
+```
+
+```
+## Steve Jobs|apple 
+##                2
 ```
 
 
@@ -106,11 +131,13 @@ common criticism of R. Happily, you have `roperators`.
 
 Now, at the risk of sounding like one of those infomercials where people struggle with 
 clearly trivial tasks, how many times do you end up doing something like this:
-```{r, eval = FALSE}
+
+```r
 iris_data$Sepal.Length <- iris_data$Sepal.Length + 1
 ```
 Or worse...
-```{r}
+
+```r
 iris_data$Sepal.Length[iris_data$Species == 'setosa'] <- iris_data$Sepal.Length[iris_data$Species == 'setosa'] + 1
 # ...which may not even fit on the page. 
 ```
@@ -119,11 +146,13 @@ Without `roperators` the trivial code above makes me envy the blind. After all,
 you're only adding 1 to some values. So, using the *greatest-best* package formally called
 `roperators`: 
 
-```{r, eval = FALSE}
+
+```r
 iris_data$Sepal.Length %+=% 1
 ```
 Or
-```{r}
+
+```r
 iris_data$Sepal.Length[iris_data$Species == 'setosa'] %+=% 1
 # ...which is ike a breath of fresh air
 ```
@@ -138,12 +167,17 @@ The current in-place modifiers included in `roperators` are:
 
 The last two are similar depending on whether you want to modify the text or replace it outright. 
 Note that they both take two values `c(pattern, replacement)`:
-```{r}
+
+```r
 x <- c("a1b", "b1", "c", "d0")
 # Replace digits with the letter x
 x %regex=% c("\\d+", "i")
  # x is now c("aib", "bi", "c", "di")
 print(x)
+```
+
+```
+## [1] "aib" "bi"  "c"   "di"
 ```
 
 
@@ -155,16 +189,26 @@ The last in-place modifiers are `%na<-%` which works as you'd expect and `%regex
 which is hopefully intuitive enough. This is useful for all those 
 times you'd otherwise need to do something clunky like `df$column[is.na(df$column)] <- 0`
 
-```{r}
+
+```r
 x <- c(NA, 1, 2, 3)
 x %na<-% 0
 print(x)
 ```
+
+```
+## [1] 0 1 2 3
+```
 And to replace by regex... (as opposed to modifying with `%regex=%`) 
-```{r}
+
+```r
 x <- c("aib", "bi", "c", "di")
 x %regex<-% c('i', '[redacted]')
 print(x)
+```
+
+```
+## [1] "[redacted]" "[redacted]" "c"          "[redacted]"
 ```
 
 ## Make More Comparisons and Logical Operators Great Again
@@ -181,17 +225,27 @@ First up: `if(a == b)` when `a` and `b` are both `NA`. I get it, an `NA` doesn't
 technically equal another `NA`, however most of the time they, for all intents and purposes, 
 are the same. The solution is simple: 
 
-```{r}
+
+```r
 x <- c(NA, 'foo', 'foo', NA)
 y <- c(NA, 'foo', 'bar', 'bar')
 
 x %==% y
 ```
 
+```
+## [1]  TRUE  TRUE FALSE FALSE
+```
+
 As opposed to: 
 
-```{r}
+
+```r
 x == y
+```
+
+```
+## [1]    NA  TRUE FALSE    NA
 ```
 
 Think about how many `if` statements you've had break due to a lack of missing-value equality capability. 
@@ -207,7 +261,8 @@ even when a decimal place is present when in reality, is doesn't always.
 
 Don't believe me? Oh, my sweet summer child, try this and despair:
 
-```{r, eval=FALSE}
+
+```r
 (0.1 * 3) == 0.3  # FALSE
 (0.1 * 5) == 0.5  # TRUE
 (0.1 * 7) == 0.7  # FALSE
@@ -221,7 +276,8 @@ If you're feeling panicked about your old scripts, well, I guess you should be.
 
 Happily, you now have `roperators`
 
-```{r, eval=FALSE}
+
+```r
 (0.1 * 3)  %~=% 0.3  # TRUE
 (0.1 * 5)  %~=% 0.5  # TRUE
 (0.1 * 7)  %~=% 0.7  # TRUE
@@ -232,7 +288,8 @@ Happily, you now have `roperators`
 ```
 
 You could use something like `isTRUE(all.equal(0.1 * 3, 0.3))` but that looks disgusting. 
-```{r, eval=FALSE}
+
+```r
 isTRUE(all.equal(0.1 * 3, 0.3))  # TRUE
 isTRUE(all.equal(0.1 * 5, 0.5))  # TRUE
 isTRUE(all.equal(0.1 * 7, 0.7))  # TRUE
@@ -251,11 +308,32 @@ If you have any sense of style, just use `%~=%` instead.
 This is a simple shortcut with two variants for end-exclusive and end-inclusive 
 between. you just need to feed in `c(lower_bound, upper_bound)`
 
-```{r}
-5 %><% c(1, 10)  # TRUE
-1 %><% c(1, 10)  # FALSE
-1 %>=<% c(1, 10) # TRUE
 
+```r
+5 %><% c(1, 10)  # TRUE
+```
+
+```
+## [1] TRUE
+```
+
+```r
+1 %><% c(1, 10)  # FALSE
+```
+
+```
+## [1] FALSE
+```
+
+```r
+1 %>=<% c(1, 10) # TRUE
+```
+
+```
+## [1] TRUE
+```
+
+```r
 # note that due to my simple mindedness, at the time of writing, 5 %><% c(10, 1) is FALSE
 ```
 
@@ -267,23 +345,35 @@ The last set of logical operators are not in, exclusive or, and all-or-nothing.
 
 **Not In** `%ni%` was made because it's just easier to read than negating an in statement.
 For example:
-```{r}
+
+```r
 !1 %in% c(2,3,4)
-``` 
+```
+
+```
+## [1] TRUE
+```
 Which reads "not 1 in [2, 3, 4]?" which just looks wrong. So, we appropriated from the snake-like language:
 
-```{r}
+
+```r
 1 %ni% c(2,3,4)
-``` 
+```
+
+```
+## [1] TRUE
+```
 Which now reads: "1 not in [2, 3, 4]?" That's just better looking. 
 
 
 **Exclusive Or** exists in base R as a function, which makes it look inconsistent, for example:
-```{r, eval=FALSE}
+
+```r
 if((a|b) & xor(y, z))
 ```
 I know it's finicky, but the `roperators` way is a touch more consistent:
-```{r, eval=FALSE}
+
+```r
 if((a|b) & (y %xor% z))
 ```
 That way both expressions are using an operator rather than one or statement using an operator while the other uses a function. 
@@ -291,7 +381,8 @@ That way both expressions are using an operator rather than one or statement usi
 
 **All or Nothing** is for those occasions when you want `a` and `b` to either both be `TRUE` or both be `FALSE` - for two logical variables it's probably easier to use `a == b`, but for expressions it can be cleaner:
 
-```{r, eval=FALSE}
+
+```r
 if((a*2 == b+2) %aon% (x^2 == y*10))
 # Compared to 
 if((a*2 == b+2) == (x^2 == y*10)) 
@@ -328,19 +419,28 @@ I'll give this one to PyPeople, R's conversion syntax is cumbersome. That's why 
 
 Now things like this:
 
-```{r}
+
+```r
 x <- c('TRUE', 'FALSE', 'TRUE', 'TRUE')
 
 percent_true <- paste0(sum(as.integer(as.logical(x))) / length(x)*100, '%')
 print(percent_true)
+```
 
+```
+## [1] "75%"
 ```
 
 Can be done like this:
 
-```{r}
+
+```r
 percent_true <- (sum(int(bool(x))) / length(x) * 100) %+% '%'
 print(percent_true)
+```
+
+```
+## [1] "75%"
 ```
 
 Which is arguably easier on the eyes, especially for people who grew up in other programming languages. 
@@ -352,7 +452,8 @@ Sometimes you just want to know that everything is going to be okay. Rather than
 multiple checks. If you wanted to be sure something was going to work in R, you could do something like
 this: 
 
-```{r, eval=FALSE}
+
+```r
 if(is.atomic(x) & (length(x) >= 1) & !is.na(x) & !is_nan(x) & !is.na(as.numeric(x)) & !is.factor(x) & !is.infinite(x) ){
   ...
 }
@@ -361,7 +462,8 @@ if(is.atomic(x) & (length(x) >= 1) & !is.na(x) & !is_nan(x) & !is.na(as.numeric(
 ...Which is fine if you're happy with people thinking you're a maniac, 
 Or you could just use `roperators` like so:
 
-```{r, eval = FALSE}
+
+```r
 if(!is.bad_for_calcs(x)){
   ...
 }
@@ -391,3 +493,117 @@ To help with basic checks, and for those times when something should either be a
 
 Some of you may have been thinking: “oh, so it’s like using `magrittr` to write cleaner code?” And, yes, it’s kind of the same idea - making R coding a bit nicer around the edges. Also like `magrittr`, it’s a tiny, self contained package so you can easily use it in production code. 
 I use `roperators` and `magrittr` together religously and you should too. After all, why make things unpleasant for yourself when you don’t need to? Just think about how much more clean and tidy your R code could be if you used string arithmetic operators, in-place modifiers, direct replacement for missing values, better logical operators (especially for NA handling and floating point equality), terse conversions, simplified checks, and magrittr pipes!
+
+
+## System Checks
+
+Often I want to have my packages know what kind of operating system they're running on. For example, 
+if I'm writing parallel code, my code needs to know if it's dealing with a unix-based OS or Windows or which kind of R is running. As such, we 
+added some simplified checks. 
+
+* `get_os()` to find what operating system is running
+* `is.os_mac()` `TRUE` if running on Mac OSX/darwin.
+* `is.os_win()` `TRUE` if running on Windows
+* `is.os_lnx()` `TRUE` if running on Linux the way God intended.
+* `is.os_unx()` `TRUE` if running on a Unix-based operating system like Linux or OSX 
+* `is.os_x64()` `TRUE` if running on 64-bit operating system
+* `is.R_x64()`  `TRUE` if running 64-bit R
+* `is.R_revo()` `TRUE` if running revolution R (i.e. Microsoft R Open)
+* `is.RStudio()` `TRUE` if running in Rstudio
+
+## Content Checks
+
+For checking if a field has at most 1 or 2 unique values. 
+
+* `is.constant()` `TRUE` unless there's more than 1 unique value
+* `is.binary()` `TRUE` unless there are more than 2 unique values
+
+## Complete Cases Shortcuts
+
+If you're tired of tryping `, na.rm = TRUE` we made these functions for you.Basically, just add _cc (complete cases) to a function name and it'll add `na.rm = TRUE` for you. They work just like the base functions, only with `na.rm = TRUE`, similar to `paste0()` being just `paste(..., sep ="")`
+
+* `length_cc()`
+* `n_unique_cc()`
+* `min_cc()`
+* `max_cc()`
+* `range_cc()`
+* `all_cc()`
+* `any_cc()`
+* `sum_cc()`
+* `prod_cc()`
+* `mean_cc()`
+* `median_cc()`
+* `var_cc()`
+* `cov_cc()`
+* `cor_cc()`
+* `sd_cc()`
+* `weighted.mean_cc()`
+* `quantile_cc()`
+* `IQR_cc()`
+* `mad_cc()`
+* `rowSums_cc()`
+* `colSums_cc()`
+* `rowMeans_cc()`
+* `colMeans_cc()`
+
+
+## File Checks
+
+When you need to check that the extension of a file is okay, you can uses these 
+checks. Basically these check the file extensions and for custom cases use `check_ext_against()`.
+
+* `is_txt_file()`
+* `is_csv_file()`
+* `is_excel_file()`
+* `is_r_file()`
+* `is_rdata_file()`
+* `is_rda_file()`
+* `is_rds_file()`
+* `is_spss_file()`
+
+
+## Paste & Cat helpers
+
+
+## Get first, last, nth, most frequent element/word
+
+For basic vectors, it's pretty intuitive
+
+```r
+my_stuff <- c(1:10, 10, 5)
+
+# These are straight forward
+get_1st(my_stuff)    # 1
+get_nth(my_stuff, 3) # 3
+get_last(my_stuff)   # 5
+
+# Returns numeric vector of mode(s) if x is numeric
+get_most_frequent(my_stuff) # c(10, 5)
+
+# Else it returns a character vector
+my_chars <- c("a", "b", "b", "a", "g", "o", "l", "d")
+get_most_frequent(my_chars) # c("a", "b")
+
+# can collapse into a single string (for convienience)
+get_most_frequent(my_chars, collapse = " & ") # "a & b"
+
+```
+
+For pulling apart strings
+
+```r
+generic_string <- "Who's A good boy? Winston's a good boy!"
+
+get_1st_word(generic_string)    # Who's
+get_nth_word(generic_string, 3) # good
+get_last_word(generic_string)   # boy!
+
+# default ignores case and punctuation
+get_most_frequent_word(generic_string) # c("a", "boy", "good")
+
+# can change like so:
+get_most_frequent_word(generic_string, ignore.case = FALSE, ignore.punct = FALSE) 
+# "good"
+
+```
+

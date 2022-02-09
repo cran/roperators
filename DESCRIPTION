@@ -1,24 +1,46 @@
 Package: roperators
-Type: Package
 Title: Additional Operators to Help you Write Cleaner R Code
-Version: 1.1.0
+Version: 1.2.0
+Authors@R: 
+    c(person('Ben', 'Wiseman',
+             role  = c('cre', 'aut', 'ccp'),
+             email = 'benjamin.wiseman@kornferry.com'),
+      person('Steven',  'Nydick',
+             role    = c('aut', 'ccp'),
+             email   = 'steven.nydick@kornferry.com',
+             comment = c(ORCID = "0000-0002-2908-1188")),
+      person('Jeff', 'Jones',
+             role  = c('aut', 'led'),
+             email = 'jeff.jones@kornferry.com'))
 Maintainer: Ben Wiseman <benjamin.wiseman@kornferry.com>
-Authors@R: c(person('Ben', 'Wiseman', role = c('cre', 'aut', 'ccp'), email = 'benjamin.wiseman@kornferry.com'),
-             person('Steven',  'Nydick', role = c('aut', 'ccp'), email = 'steven.nydick@kornferry.com'),
-             person('Jeff', 'Jones', role = c('aut', 'led'), email = 'jeff.jones@kornferry.com'))
-Description: Provides string arithmetic, reassignment operators, logical operators that handle missing values, and extra logical operators such as floating point equality and all or nothing. The intent is to allow R users to write code that is easier to read, write, and maintain while providing a friendlier experience to new R users from other language backgrounds (such as 'Python') who are used to concepts such as x += 1 and 'foo' + 'bar'.
-Encoding: UTF-8
-LazyData: true
-Copyright: Korn Ferry International
+Description: Provides string arithmetic, reassignment operators, logical operators
+  that handle missing values, and extra logical operators such as floating point
+  equality and all or nothing. The intent is to allow R users to write code that
+  is easier to read, write, and maintain while providing a friendlier experience
+  to new R users from other language backgrounds (such as 'Python') who are used
+  to concepts such as x += 1 and 'foo' + 'bar'.
+  Includes operators for not in, easy floating point comparisons, === equivalent, and SQL-like 
+  like operations (), etc. 
+  We also added in some extra helper functions, such as OS checks, pasting
+  in Oxford comma format, and functions to get the first, last, nth, or most common 
+  element of a vector or word in a string. 
 License: MIT + file LICENSE
-RoxygenNote: 6.1.0
-Suggests: magrittr, knitr, prettydoc
+Copyright: Korn Ferry International
+URL: https://benwiseman.github.io/roperators/,
+        https://github.com/BenWiseman/roperators
+Depends: R (>= 3.0.0)
+Imports: stats, tools
+Suggests: magrittr, knitr, markdown, rmarkdown, prettydoc
 VignetteBuilder: knitr
-Collate: 'type_checks.R' 'operators.R' 'shorthand.R' 'write_pdf.R'
+Encoding: UTF-8
+RoxygenNote: 7.1.2
+Collate: 'complete_cases.R' 'content_checks.R' 'file_checks.R'
+        'ip_checks.R' 'type_checks.R' 'operators.R' 'os_checks.R'
+        'paste_functions.R' 'shorthand.R' 'utils.R'
 NeedsCompilation: no
-Packaged: 2018-09-28 21:16:55 UTC; benwiseman
+Packaged: 2022-02-09 23:58:04 UTC; ben
 Author: Ben Wiseman [cre, aut, ccp],
-  Steven Nydick [aut, ccp],
+  Steven Nydick [aut, ccp] (<https://orcid.org/0000-0002-2908-1188>),
   Jeff Jones [aut, led]
 Repository: CRAN
-Date/Publication: 2018-09-28 21:40:06 UTC
+Date/Publication: 2022-02-10 00:20:06 UTC

@@ -8,8 +8,8 @@
 #' @return a logical value
 #'
 #' @author Steven Nydick, \email{steven.nydick@@kornferry.com}
-#' @rdname type_checks
-
+#' @name type_checks
+NULL
 
 #' @rdname type_checks
 #' @export
@@ -92,12 +92,32 @@ any_bad_for_calcs <- function(x, ..., na.rm = FALSE){
   any(is.bad_for_calcs(x, na.rm))
 } # END any_bad_for_calcs FUNCTION
 
+# Cran check isn't happy with using any.
+#' @rdname type_checks
+#' @param  ... Values to be testes
+#' @param  na.rm If true, NA values aren't considered bad for calculations
+#' @export
+all_good_for_calcs <- function(x, ..., na.rm = FALSE){
+  x <- c(x, ...)
+  # Changed args because of r cmd check
+  all(!is.bad_for_calcs(x, na.rm))
+} # END any_bad_for_calcs FUNCTION
+
+
 #' @rdname type_checks
 #' @export
 is.bad_for_indexing <- function(x){
 
   # note - bad for single [[]] list indexing
   !is.scalar(x) || any_bad_for_calcs(x)
+} # END is_bad_for_indexing FUNCTION
+
+#' @rdname type_checks
+#' @export
+is.good_for_indexing <- function(x){
+
+  # note - bad for single [[]] list indexing
+  is.scalar(x) || all_good_for_calcs(x)
 } # END is_bad_for_indexing FUNCTION
 
 
@@ -132,6 +152,18 @@ is.bad_for_calcs <- function(x, na.rm = FALSE){
   } # END ifelse STATEMENTS
 }
 
+#' @rdname type_checks
+#' @export
+is.good_for_calcs <- function(x, na.rm = FALSE){
+  return(!is.bad_for_calcs(x, na.rm))
+}
 
+#' @rdname type_checks
+#' @export
+is.null_or_na <- function(x){
+  out <- is.null(x) | is.na(x)
+  out[length(out)==0] <- TRUE
+  out
+}
 
 
