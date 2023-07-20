@@ -1,5 +1,19 @@
-# roperators 1.2.0
+# roperators 1.3.14
 
+
+* added `is.os_arm()` to check if running ARM cpu
+* added `get_R_version()` to pull current R version
+* added `get_R_version_age()` to find how old the installed R version is
+* added `get_latest_CRAN_version()` to find the latest version on CRAN (rvest required)
+* added `get_system_python()` to return default python called in system calls to "python"
+* added `%C%` for choose operator and `%P%` for permute
+* added `integrate()` for inline integrations
+*added `is.http_available()` checks if you can send an http request either by httr, rcurl, or a system call to curl.  
+
+
+# roperators 1.3.0
+
+* added `seq_around()` for evenly spaced sequences around an origin point 
 * Cleaned up roxygen comments, DESCRIPTION, and NAMESPACE files.
 * Added a `NEWS.md` file to track changes to the package.
 * New complete cases functions (`length_cc()`, `min_cc()`, `max_cc()`,

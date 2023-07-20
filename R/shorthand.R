@@ -241,7 +241,7 @@ get_most_frequent_word <- function(x,
 }
 
 
-#' Return numbetr of unique things in x
+#' Return number of unique things in x
 #' @export
 #' @param x vector
 #' @param na.rm whether to ignore NAs when determining uniqueness
@@ -253,6 +253,28 @@ n_unique <- function(x, na.rm = FALSE){
     calc_len <- length
   }
   calc_len(unique(x))
+}
+
+
+
+#' Return vector of n points evenly spaced around the origin point
+#' @return Numeric vector. Will default to 1 if arguments are left blank to conform with default seq() behaviour.
+#' @export
+#' @param origin number to center sequence around
+#' @param n number of points to create
+#' @param spacing distance between any two points in the sequence
+#' @rdname time_savers
+seq_around <- function(origin = 1, n = 1, spacing = 0.25){
+  if(length(n) != 1 || !is.integer(n)) rop_stop("Must provide a single integer as n argument")
+  # easy cases
+  if(n==1) return(origin)
+  if(n>=2) {
+    y <- origin +  seq(from = -((n-1)/2)*spacing, to = ((n-1)/2)*spacing, length.out = n )
+    return(y)
+  }
+  # clearly n is broken or negative
+  rop_stop("Could not generate numeric sequence in seq_around() - check arguments.")
+
 }
 
 
@@ -272,4 +294,32 @@ read.tsv <- function(file, ...){
 #' @export
 read.psv <- function(file, ...){
   utils::read.table(file, header = TRUE, sep = '|', ...)
+}
+
+
+
+#' loads package if available, else tries to install it (from CRAN by default)
+#' @param pkg name of package to load/install
+#' @param ...  other args used by install.packages
+#' @rdname library.force
+#' @export
+library.force <- function(pkg, ...){
+  # Try to load the package
+  installed <- require(pkg, character.only = TRUE)
+
+  # If the package is not installed, install it
+  if (!installed) {
+    utils::install.packages(pkg, ...)
+    # Try to load the package again after installing
+    library(pkg, character.only = TRUE)
+  }
+}
+
+#' loads package if available, else tries to install it (from CRAN by default)
+#' @param pkg name of package to load/install
+#' @param ...  other args used by install.packages
+#' @rdname library.force
+#' @export
+require.force <- function(pkg, ...) {
+  library.force(pkg, ...)
 }

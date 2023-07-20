@@ -15,7 +15,6 @@
 #'
 #' `paste_oxford()` shortcut for `paste_series` as oxford comma
 #'
-#'
 #' @param conjunction the conjunction to use to collapse the final elements
 #'        in the series (such as and, or, &, or something else)
 #' @param use_oxford_comma whether to use the oxford comma in the series
@@ -37,6 +36,10 @@ paste_ <- function(...,
 
 
 #' @rdname paste_and_cat
+#' @param file character - A connection, or a character string naming the file to print to. If "" (the default), cat prints to the standard output connection, the console unless redirected by sink.
+#' @param fill 	a logical or (positive) numeric controlling how the output is broken into successive lines. see `?cat`
+#' @param labels character vector of labels for the lines printed. Ignored if fill is FALSE.
+#' @param sep a character vector of strings to append after each element
 #' @export
 cat0 <- function(...,
                  file   = "",
@@ -82,6 +85,8 @@ catN <- function(...,
 #' paste_series("a", "b",
 #'              use_oxford_comma = TRUE)
 #' @rdname paste_and_cat
+#' @param  conjunction indicates the ending conjunction. e.g. setting to "and" would make c("a", "b", "c") paste into "a, b, and c"
+#' @param use_oxford_comma logical - do you want to use an oxford comma at the end?
 #' @export
 paste_series <- function(...,
                          sep = c(",", ";"),

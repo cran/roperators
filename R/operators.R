@@ -624,3 +624,61 @@ NULL
 }
 
 
+
+##### Mathematical operators
+#' Choose and permute
+#'
+#' @description
+#' Shorthand for some common mathematical operators
+#'
+#' @param n whole number (from n choose/permute k)
+#' @param k whole number (from n choose/permute k)
+#'
+#' @examples
+#' # Calculate 5 choose 3
+#' print(5 %C% 3)
+#' # Calculate 5 permute 3
+#' print(5 %P% 3)
+#'
+#' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
+#' @name choose_permute
+NULL
+#' operator for combinations
+#' @rdname choose_permute
+#' @export
+"%C%" <- function(n, k) {
+  choose(n, k)
+}
+
+#' operator for permutations
+#' @rdname choose_permute
+#' @export
+"%P%" <- function(n, k) {
+  factorial(n) / factorial(n - k)
+}
+
+
+#' Inline integration
+#' @description
+#' inline call to integrate that returns integration value rather than list
+#'
+#' @param f function (with numeric return)
+#' @param range vector of two numbers c(low, high)
+#'
+#' @examples
+#' f <- function(x) x^2
+#' print(f %integrate% c(0, 1))
+#' # vs base
+#' x <- integrate(f, 0, 1)
+#' str(x)
+#' @author Ben Wiseman, \email{benjamin.wiseman@@kornferry.com}
+#' @name integrate
+NULL
+
+#' @rdname integrate
+#' @export
+"%integrate%" <- function(f, range) {
+  x <- integrate(f, range[1], range[2])
+  return(x$value)
+}
+

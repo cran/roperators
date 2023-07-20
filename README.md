@@ -10,15 +10,15 @@ When I first started with R, there were a few things that bothered me
 greatly. While I can’t change dynamic typing, it is possible to do
 things such as:
 
-1.  String addition, subtraction, multiplication, and division </br>
-2.  In-place modifiers (*à la* `+=`) </br>
-3.  Direct assignments to only NA or regex-matched elements </br>
-4.  Comparison operators for between, floating point equality, and more
+1)  String addition, subtraction, multiplication, and division </br>
+2)  In-place modifiers (*à la* `+=`) </br>
+3)  Direct assignments to only NA or regex-matched elements </br>
+4)  Comparison operators for between, floating point equality, and more
     </br>
-5.  Extra logical operators to make code more consistent </br>
-6.  Make nicer (shorter) conversion functions (`int()` as opposed to
+5)  Extra logical operators to make code more consistent </br>
+6)  Make nicer (shorter) conversion functions (`int()` as opposed to
     `as.integer()`) </br>
-7.  Simple checks for usability (e.g `is.bad_for_calcs()` or
+7)  Simple checks for usability (e.g `is.bad_for_calcs()` or
     `is.os_x64()`)
 
 The above functionality, I’d found myself manually adding into my R
@@ -129,12 +129,12 @@ iris_data$Sepal.Length[iris_data$Species == 'setosa'] %+=% 1
 
 The current in-place modifiers included in `roperators` are:
 
--   `%+=%`, `%-=%` - Add to and subtract from a variable. Also works on
-    character strings
--   `%*=%`, `%/=%`, and `%^=%` - Multiply, divide, and exponentiation a
-    variable.
--   `%root=%` and `%log=%` - Transform a variable by the nth root or log
--   `%regex=%` - Apply a regular expression to text
+- `%+=%`, `%-=%` - Add to and subtract from a variable. Also works on
+  character strings
+- `%*=%`, `%/=%`, and `%^=%` - Multiply, divide, and exponentiation a
+  variable.
+- `%root=%` and `%log=%` - Transform a variable by the nth root or log
+- `%regex=%` - Apply a regular expression to text
 
 The last two are similar depending on whether you want to modify the
 text or replace it outright. Note that they both take two values
@@ -369,13 +369,13 @@ chuck an f in front of it and be done with it.
 I’ll give this one to PyPeople, R’s conversion syntax is cumbersome.
 That’s why `roperators` includes:
 
--   `chr()` short for `as.character()`
--   `num()` short for `as.numeric()`
--   `int()` short for `as.integer()`
--   `dbl()` short for `as.double()`
--   `chr()` short for `as.character()` (if only `str()` wasn’t already
-    taken)
--   `bool()` short for `as.logical()`
+- `chr()` short for `as.character()`
+- `num()` short for `as.numeric()`
+- `int()` short for `as.integer()`
+- `dbl()` short for `as.double()`
+- `chr()` short for `as.character()` (if only `str()` wasn’t already
+  taken)
+- `bool()` short for `as.logical()`
 
 Now things like this:
 
@@ -437,20 +437,20 @@ you from `any(is.bad_for_calcs((x))` because we’re nice like that.
 
 Beyond that, you’ll also find:
 
--   `is.scalar()`
--   `is.irregular_list()`
--   `is.bad_for_indexing()`
+- `is.scalar()`
+- `is.irregular_list()`
+- `is.bad_for_indexing()`
 
 To help with basic checks, and for those times when something should
 either be a certain class or `NULL`:
 
--   `is.scalar_or_null()`
--   `is.numeric_or_null()`
--   `is.character_or_null()`
--   `is.logical_or_null()`
--   `is.df_or_null()`
--   `is.list_or_null()`
--   `is.atomic_nan()` (I didn’t want to put it all by itself)
+- `is.scalar_or_null()`
+- `is.numeric_or_null()`
+- `is.character_or_null()`
+- `is.logical_or_null()`
+- `is.df_or_null()`
+- `is.list_or_null()`
+- `is.atomic_nan()` (I didn’t want to put it all by itself)
 
 ## System Checks
 
@@ -459,23 +459,23 @@ they’re running on. For example, if I’m writing parallel code, my code
 needs to know if it’s dealing with a unix-based OS or Windows or which
 kind of R is running. As such, we added some simplified checks.
 
--   `get_os()` to find what operating system is running
--   `is.os_mac()` `TRUE` if running on Mac OSX/darwin.
--   `is.os_win()` `TRUE` if running on Windows
--   `is.os_lnx()` `TRUE` if running on Linux the way God intended.
--   `is.os_unx()` `TRUE` if running on a Unix-based operating system
-    like Linux or OSX
--   `is.os_x64()` `TRUE` if running on 64-bit operating system
--   `is.R_x64()` `TRUE` if running 64-bit R
--   `is.R_revo()` `TRUE` if running revolution R (i.e. Microsoft R Open)
--   `is.RStudio()` `TRUE` if running in Rstudio
+- `get_os()` to find what operating system is running
+- `is.os_mac()` `TRUE` if running on Mac OSX/darwin.
+- `is.os_win()` `TRUE` if running on Windows
+- `is.os_lnx()` `TRUE` if running on Linux the way God intended.
+- `is.os_unx()` `TRUE` if running on a Unix-based operating system like
+  Linux or OSX
+- `is.os_x64()` `TRUE` if running on 64-bit operating system
+- `is.R_x64()` `TRUE` if running 64-bit R
+- `is.R_revo()` `TRUE` if running revolution R (i.e. Microsoft R Open)
+- `is.RStudio()` `TRUE` if running in Rstudio
 
 ## Content Checks
 
 For checking if a field has at most 1 or 2 unique values.
 
--   `is.constant()` `TRUE` unless there’s more than 1 unique value
--   `is.binary()` `TRUE` unless there are more than 2 unique values
+- `is.constant()` `TRUE` unless there’s more than 1 unique value
+- `is.binary()` `TRUE` unless there are more than 2 unique values
 
 ## Complete Cases Shortcuts
 
@@ -485,29 +485,29 @@ it’ll add `na.rm = TRUE` for you. They work just like the base
 functions, only with `na.rm = TRUE`, similar to `paste0()` being just
 `paste(..., sep ="")`
 
--   `length_cc()`
--   `n_unique_cc()`
--   `min_cc()`
--   `max_cc()`
--   `range_cc()`
--   `all_cc()`
--   `any_cc()`
--   `sum_cc()`
--   `prod_cc()`
--   `mean_cc()`
--   `median_cc()`
--   `var_cc()`
--   `cov_cc()`
--   `cor_cc()`
--   `sd_cc()`
--   `weighted.mean_cc()`
--   `quantile_cc()`
--   `IQR_cc()`
--   `mad_cc()`
--   `rowSums_cc()`
--   `colSums_cc()`
--   `rowMeans_cc()`
--   `colMeans_cc()`
+- `length_cc()`
+- `n_unique_cc()`
+- `min_cc()`
+- `max_cc()`
+- `range_cc()`
+- `all_cc()`
+- `any_cc()`
+- `sum_cc()`
+- `prod_cc()`
+- `mean_cc()`
+- `median_cc()`
+- `var_cc()`
+- `cov_cc()`
+- `cor_cc()`
+- `sd_cc()`
+- `weighted.mean_cc()`
+- `quantile_cc()`
+- `IQR_cc()`
+- `mad_cc()`
+- `rowSums_cc()`
+- `colSums_cc()`
+- `rowMeans_cc()`
+- `colMeans_cc()`
 
 ## File Checks
 
@@ -515,14 +515,14 @@ When you need to check that the extension of a file is okay, you can
 uses these checks. Basically these check the file extensions and for
 custom cases use `check_ext_against()`.
 
--   `is_txt_file()`
--   `is_csv_file()`
--   `is_excel_file()`
--   `is_r_file()`
--   `is_rdata_file()`
--   `is_rda_file()`
--   `is_rds_file()`
--   `is_spss_file()`
+- `is_txt_file()`
+- `is_csv_file()`
+- `is_excel_file()`
+- `is_r_file()`
+- `is_rdata_file()`
+- `is_rda_file()`
+- `is_rds_file()`
+- `is_spss_file()`
 
 ## File Readers
 

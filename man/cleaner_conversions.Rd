@@ -53,8 +53,4 @@ as.class(foo, "roman")
 Steven Nydick, \email{steven.nydick@kornferry.com}
 
 Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
-
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
-
-Ben Wiseman, \email{benjamin.wiseman@kornferry.com}
 }

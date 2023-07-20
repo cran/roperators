@@ -10,6 +10,7 @@
 \alias{get_most_frequent}
 \alias{get_most_frequent_word}
 \alias{n_unique}
+\alias{seq_around}
 \title{Little functions to replace common minor functions. useful in apply sttements}
 \usage{
 get_1st(x, type = "v")
@@ -37,13 +38,15 @@ get_most_frequent_word(
 )
 
 n_unique(x, na.rm = FALSE)
+
+seq_around(origin = 1, n = 1, spacing = 0.25)
 }
 \arguments{
 \item{x}{vector}
 
 \item{type}{'v' (default) for vector \code{x[1]}; 'l' for list \code{x[[1]]}}
 
-\item{n}{integer, the nth word to select}
+\item{n}{number of points to create}
 
 \item{split}{character that separated words. Default = ' '}
 
@@ -58,18 +61,26 @@ n_unique(x, na.rm = FALSE)
 \item{punct.replace}{character - what to replace punctuation with (default is "")}
 
 \item{na.rm}{whether to ignore NAs when determining uniqueness}
+
+\item{origin}{number to center sequence around}
+
+\item{spacing}{distance between any two points in the sequence}
 }
 \value{
 a vector of most common element(s). Will be character unless x is numeric and you don't tell it to collapse into a single string!
 
 a vector of most common element(s). Will be character unless x is numeric and you don't tell it to collapse into a single string!
+
+Numeric vector. Will default to 1 if arguments are left blank to conform with default seq() behaviour.
 }
 \description{
 Little functions to replace common minor functions. useful in apply sttements
 
 Get most common thing(s)
 
-Return numbetr of unique things in x
+Return number of unique things in x
+
+Return vector of n points evenly spaced around the origin point
 }
 \examples{
 # listr of car names
